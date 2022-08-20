@@ -4,9 +4,14 @@ import { cep } from "cep-any";
 export default class FormServerSide extends Nullstack {
     result = null
     error = null
-    static async fetchCepData({ value }) {
+    static async getCep({ value }) {
+        const data = await cep(value)
+        return data
+    }
+
+    async fetchCepData({ value }) {
         try {
-            const data = await cep(value)
+            const data = await this.getCep({ value })
             this.result = data
         } catch (error) {
             this.error = error
@@ -14,9 +19,6 @@ export default class FormServerSide extends Nullstack {
         }
     }
 
-    async update() {
-        console.log(this.result)
-    }
 
     onChange({ event }) {
         this.fetchCepData({ value: event.target.value })
