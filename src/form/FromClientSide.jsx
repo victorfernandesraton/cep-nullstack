@@ -1,45 +1,29 @@
 import Nullstack from "nullstack";
 import { cep } from "cep-any";
+import FormView from "./FormView";
 
 export default class Form extends Nullstack {
     result = null
     error = null
+    loading = false
     async fetchCepData({ value }) {
+        if (this.loading) return;
         try {
+            this.loading = true;
             const data = await cep(value)
             this.result = data
+            return
         } catch (error) {
             this.error = error
             this.result = null
-        }
-    }
-
-    onChange({ event }) {
-        this.fetchCepData({ value: event.target.value })
-    }
-
-    renderResult() {
-        if (this.error || !this.result) {
-            return <></>
-        }
-        if (this.result) {
-            return (
-                <div>
-                    <p>Cidade: {this.result.city}</p>
-                    <p>Estado: {this.result.state}</p>
-                    <p>Rua: {this.result.street}</p>
-                </div>
-            )
+        } finally {
+            this.loading = false
         }
     }
 
     render() {
         return (
-            <form>
-                <input type="text" name="cep" oninput={this.onChange} />
-                <Result />
-                {this.error && <p style='color: red'>{this.error}</p>}
-            </form>
+            <FormView error={this.error} result={this.result} onCepChange={this.fetchCepData} loading={this.loading} />
         )
     }
 

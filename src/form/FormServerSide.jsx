@@ -1,5 +1,6 @@
 import Nullstack from "nullstack";
 import { cep } from "cep-any";
+import FormView from "./FormView";
 
 export default class FormServerSide extends Nullstack {
     result = null
@@ -20,33 +21,11 @@ export default class FormServerSide extends Nullstack {
     }
 
 
-    onChange({ event }) {
-        this.fetchCepData({ value: event.target.value })
-    }
 
-    renderResult() {
-        if (this.error || !this.result) {
-            return <></>
-        }
-        if (this.result) {
-            return (
-                <div>
-                    <p>Cidade: {this.result.city}</p>
-                    <p>Estado: {this.result.state}</p>
-                    <p>Rua: {this.result.street}</p>
-                </div>
-            )
-        }
-    }
 
     render() {
         return (
-            <form>
-                <input type="text" name="cep" oninput={this.onChange} />
-                <Result />
-                {this.error && <p style='color: red'>{this.error}</p>}
-            </form>
+            <FormView error={this.error} result={this.result} onCepChange={this.fetchCepData} />
         )
     }
-
 }

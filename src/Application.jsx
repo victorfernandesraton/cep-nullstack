@@ -3,6 +3,7 @@ import './Application.css';
 import Home from './Home';
 import FormClientSide from './form/FromClientSide';
 import FormServerSide from './form/FormServerSide';
+import './styles.css'
 
 class Application extends Nullstack {
 
