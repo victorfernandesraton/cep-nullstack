@@ -6,6 +6,10 @@ export default class FormServerSide extends Nullstack {
     result = null
     error = null
     loading = false
+
+    prepare({ page }) {
+        page.title = 'CEP - Server Side'
+    }
     static async getCep({ value }) {
         const data = await cep(value)
         return data
@@ -15,8 +19,9 @@ export default class FormServerSide extends Nullstack {
         if (this.loading) return;
         try {
             this.loading = true;
-            const data = await this.getCep({ value })
-            this.result = data
+            const result = await this.getCep({ value })
+            this.result = result
+            this.error = null
             return
         } catch (error) {
             this.error = error

@@ -6,12 +6,18 @@ export default class Form extends Nullstack {
     result = null
     error = null
     loading = false
+
+    prepare({ page }) {
+        page.title = 'CEP - Cleint Side'
+    }
+
     async fetchCepData({ value }) {
         if (this.loading) return;
         try {
             this.loading = true;
             const data = await cep(value)
             this.result = data
+            this.error = null
             return
         } catch (error) {
             this.error = error
