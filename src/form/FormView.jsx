@@ -1,6 +1,5 @@
 export default function FormView(props) {
     const { error = null, result = null, onCepChange = null, loading = false } = props
-    console.log(loading)
     return (
         <div>
             <form>
