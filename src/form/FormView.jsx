@@ -1,13 +1,13 @@
 export default function FormView(props) {
     const { error = null, result = null, onCepChange = null, loading = false } = props
     return (
-        <section class="overflow-hidden text-gray-700 items-center">
-            <article>
-                <div className="flex justify-center">
-                    <div class="p-6 rounded-lg shadow-lg bg-white max-w-md">
-                        <div class="form-group mb-6">
-                            <form>
-                                <label for="cep" class="form-label inline-block mb-2 text-gray-700">Insira seu CEP</label>
+        <section class="flex justify-between flex-col lg:flex-row mx-20 mt-4">
+            <article class="overflow-hidden text-gray-700 items-center rounded-lg shadow-lg bg-white flex justify-center lg:mb-0 mb-8">
+                <div class="p-6 max-w-lg">
+                    <div class="form-group mb-6 p-2">
+                        <form onsubmit={onCepChange}>
+                            <label for="cep" class="form-label inline-block mb-2 text-gray-700">Insira seu CEP</label>
+                            <div class="flex flex-row">
                                 <input
                                     class="form-control
                                     block
@@ -29,20 +29,24 @@ export default function FormView(props) {
                                     type="text" name="cep" oninput={({ event }) => {
                                         onCepChange({ value: event.target.value })
                                     }} />
-                            </form>
-                        </div>
-                        {loading && <div>Loading...</div>}
-                        {result && !error && !loading && (
-                            <div>
-                                <p>Cidade: {result.city}</p>
-                                <p>Estado: {result.state}</p>
-                                <p>Rua: {result.street}</p>
                             </div>
-                        )}
-                        {error && !loading && <p style='color: red'>{error}</p>}
+                        </form>
                     </div>
                 </div>
             </article>
+            <aside class="flex w-full lg:w-8/12 400 ext-gray-700 items-center rounded-lg shadow-lg bg-white flex justify-start px-2">
+                <div class="p-6">
+                    {loading && <p>Loading...</p>}
+                    {result && !error && !loading && (
+                        <>
+                            <p>Cidade: {result.city}</p>
+                            <p>Estado: {result.state}</p>
+                            <p>Rua: {result.street}</p>
+                        </>
+                    )}
+                    {error && !loading && <p style='color: red'>{error}</p>}
+                </div>
+            </aside>
         </section>
     )
 }

@@ -28,7 +28,7 @@ export default class Container extends Nullstack {
 
     render({ children }) {
         return (
-            <section class="flex-col">
+            <>
                 <nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-center">
                     <div class="px-6 w-full flex flex-col items-cente">
 
@@ -43,10 +43,8 @@ export default class Container extends Nullstack {
                         </ul>
                     </div>
                 </nav>
-                <article>
-                    {children}
-                </article>
-            </section>
+                {children}
+            </>
         )
     }
 

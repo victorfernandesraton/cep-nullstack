@@ -1,5 +1,4 @@
 import Nullstack from 'nullstack';
-import Home from './Home';
 import FormClientSide from './form/FromClientSide';
 import FormServerSide from './form/FormServerSide';
 import './styles.css'
@@ -28,7 +27,7 @@ class Application extends Nullstack {
       <main>
         <Head />
         <Container>
-          <Home route="/" />
+          <FormClientSide route="/" />
           <FormClientSide route="/client" />
           <FormServerSide route="/server" />
         </Container>
